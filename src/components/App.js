@@ -13,10 +13,10 @@ export const App = () => {
   const isLoading = useSelector(getLoadingStatus);
   const error = useSelector(getError);
   const itemsState = useSelector(state => state.tasks.items);
-  console.log("itemsState", itemsState);
+  // console.log("itemsState", itemsState);
 
   useEffect(() => {
-    console.log("при монтаже АПП диспатчим ОПЕРАЦИЮ fetchTasks");
+    // console.log("при монтаже АПП диспатчим ОПЕРАЦИЮ fetchTasks");
     dispatch(fetchTasks());
   }, [dispatch]);
 

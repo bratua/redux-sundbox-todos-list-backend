@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useSelector } from "react-redux";
 import {
   fetchTasks,
   addTask,
@@ -70,11 +69,11 @@ const tasksSlice = createSlice({
     [toggleStatusTask.fulfilled](state, action) {
       state.isLoading = false;
       state.error = null;
-      // console.log("DEL payload", action.payload.id);
+      // console.log("Change payload", action.payload.id);
       const index = state.items.findIndex(
         task => task.id === action.payload.id
       );
-      // console.log("ID to delete", index);
+      // console.log("ID to change", index);
       state.items.splice(index, 1, action.payload);
     },
     [toggleStatusTask.rejected](state, action) {

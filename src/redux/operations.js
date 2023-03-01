@@ -6,10 +6,10 @@ axios.defaults.baseURL = "https://63fe0be119f41bb9f659e8fc.mockapi.io";
 export const fetchTasks = createAsyncThunk(
   "tasks/fetchAll",
   async (_, thunkAPI) => {
-    console.log("fetchAll --- пошёл запрос");
+    // console.log("fetchAll --- пошёл запрос");
     try {
       const response = await axios.get("/todos/tasks");
-      console.log(response.data);
+      // console.log(response.data);
       // console.log("fetchTasks --- запрос выполнен ОК");
       return response.data;
     } catch (error) {
@@ -37,6 +37,7 @@ export const deleteTask = createAsyncThunk(
   async (taskId, thunkAPI) => {
     try {
       const response = await axios.delete(`/todos/tasks/${taskId}`);
+      // console.log("DEL op", response.data);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -45,7 +46,7 @@ export const deleteTask = createAsyncThunk(
 );
 
 export const toggleStatusTask = createAsyncThunk(
-  "tasks/deleteTask",
+  "tasks/toggleStatusTask",
   async (task, thunkAPI) => {
     try {
       const response = await axios.put(`/todos/tasks/${task.id}`, {
