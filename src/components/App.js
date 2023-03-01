@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTasks } from "redux/operations";
-import { getError, getLoadingStatus } from "redux/selectors";
+import { selectError, selectLoadingStatus } from "redux/selectors";
 
 import { Layout } from "components/Layout/Layout";
 import { AppBar } from "components/AppBar/AppBar";
@@ -10,8 +10,8 @@ import { TaskList } from "components/TaskList/TaskList";
 
 export const App = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(getLoadingStatus);
-  const error = useSelector(getError);
+  const isLoading = useSelector(selectLoadingStatus);
+  const error = useSelector(selectError);
   const itemsState = useSelector(state => state.tasks.items);
   // console.log("itemsState", itemsState);
 

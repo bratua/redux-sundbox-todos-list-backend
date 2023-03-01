@@ -6,6 +6,15 @@ import {
   toggleStatusTask,
 } from "./operations";
 
+//Выносим одинаковый код редьюсеров
+const handlePending = state => {
+  state.isLoading = true;
+};
+const handleRejected = (state, action) => {
+  state.isLoading = false;
+  state.error = action.payload;
+};
+
 const tasksSlice = createSlice({
   name: "tasks",
   initialState: {
@@ -15,38 +24,26 @@ const tasksSlice = createSlice({
   },
   extraReducers: {
     // забираем все ТУДУ-хи с сервера
-    [fetchTasks.pending](state) {
-      state.isLoading = true;
-    },
+    [fetchTasks.pending]: handlePending,
     [fetchTasks.fulfilled](state, action) {
       state.isLoading = false;
       state.error = null;
       state.items = action.payload;
     },
-    [fetchTasks.rejected](state, action) {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
+    [fetchTasks.rejected]: handleRejected,
 
     // добавляем новую ТУДУ-ху на сервер
-    [addTask.pending](state) {
-      state.isLoading = true;
-    },
+    [addTask.pending]: handlePending,
     [addTask.fulfilled](state, action) {
       state.isLoading = false;
       state.error = null;
       // console.log(action);
       state.items.push(action.payload);
     },
-    [addTask.rejected](state, action) {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
+    [addTask.rejected]: handleRejected,
 
     // удаляем ТУДУ-ху по ИД
-    [deleteTask.pending](state) {
-      state.isLoading = true;
-    },
+    [deleteTask.pending]: handlePending,
     [deleteTask.fulfilled](state, action) {
       state.isLoading = false;
       state.error = null;
@@ -57,15 +54,10 @@ const tasksSlice = createSlice({
       // console.log("ID to delete", index);
       state.items.splice(index, 1);
     },
-    [deleteTask.rejected](state, action) {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
+    [deleteTask.rejected]: handleRejected,
 
     // меняем статус ТУДУ-хи по ИД
-    [toggleStatusTask.pending](state) {
-      state.isLoading = true;
-    },
+    [toggleStatusTask.pending]: handlePending,
     [toggleStatusTask.fulfilled](state, action) {
       state.isLoading = false;
       state.error = null;
@@ -76,10 +68,7 @@ const tasksSlice = createSlice({
       // console.log("ID to change", index);
       state.items.splice(index, 1, action.payload);
     },
-    [toggleStatusTask.rejected](state, action) {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
+    [toggleStatusTask.rejected]: handleRejected,
   },
 });
 
